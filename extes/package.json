@@ -1,0 +1,22 @@
+{
+  "name": "extes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "ls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keix1/jstes.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/keix1/jstes/issues"
+  },
+  "homepage": "https://github.com/keix1/jstes#readme",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
+}
