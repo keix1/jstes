@@ -3,5 +3,5 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/animal');
 
 
-module.exports = require('./schema/cat.js');
-// module.exports = require('./schema/Family.js');
+exports.Cat = require('./schema/Cat.js');
+exports.Family = require('./schema/Family.js');
