@@ -25,7 +25,6 @@ dbmodule.setPet = function(pet_name, family_name, animal_name) {
           animal: animal_result._id
         }, function(err, animal_category_result) {
 
-          // console.log(animal_category_result[0].category);
           console.log(animal_result._id);
 
           pet = new Pet({
