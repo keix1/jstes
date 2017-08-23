@@ -49,7 +49,103 @@ dbmodule.setPet = function(pet_name, family_name, animal_name) {
   });
 };
 
+dbmodule.setPetOne = function(pet_name, family_name, animal_name) {
+  return new Promise(function(resolve, reject) {
+    var Pet = schema.Pet;
+    var Family = schema.Family;
+    var Animal = schema.Animal;
+    var Category = schema.Category;
+    var AnimalCategory = schema.AnimalCategory;
+
+    Family.findOne({
+      name: family_name
+    }, function(err, family_result) {
+      console.log(family_result.name);
+
+      Animal.findOne({
+        name: animal_name
+      }, function(err, animal_result) {
+
+        console.log(animal_result.name);
+
+        AnimalCategory.find({
+          animal: animal_result._id
+        }, function(err, animal_category_result) {
+
+          // console.log(animal_category_result[0].category);
+          console.log(animal_result._id);
+
+          pet = new Pet({
+            name: pet_name,
+            family: family_result._id,
+            animal: animal_result._id,
+            category: animal_category_result[0].category
+          });
+
+          pet.save(function(err) {
+            if (err) console.log(err);
+          });
+
+        });
+
+
+
+      });
+
+    });
+  });
+};
+
+
 dbmodule.getPet = function() {
+  return new Promise(function(resolve, reject) {
+    var Pet = schema.Pet;
+    var Family = schema.Family;
+    var Category = schema.Category;
+    var Animal = schema.Animal;
+    var AnimalCategory = schema.AnimalCategory;
+
+    Pet.find()
+      .populate('family')
+      .exec(function(err, pet) {
+        if (err) console.log(err);
+
+        result = {};
+        for (var onePet of pet) {
+          // var onePet = pet[0];
+
+          result.name = onePet.name;
+
+          Family.findOne({
+            _id: onePet.family
+          }, function(err, family_result) {
+            if (err) console.log(err);
+            result.family = family_result.name;
+
+            Animal.findOne({
+              _id: onePet.animal
+            }, function(err, animal_result) { result.animal = animal_result.name;
+
+              Category.findOne({
+                _id: onePet.category
+              }, function(err, category_result) {
+                result.category = category_result.name;
+
+                console.log(result);
+                resolve(result);
+                // resolve(result);
+              });
+            });
+          });
+        }
+      });
+
+
+  });
+};
+
+
+dbmodule.getPetOne = function() {
   return new Promise(function(resolve, reject) {
     var Pet = schema.Pet;
     var Family = schema.Family;

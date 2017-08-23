@@ -15,10 +15,6 @@ var Pet = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Category'
   },
-  // animalCategory: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: 'AnimalCategory'
-  // },
 });
 
 module.exports = mongoose.model('Pet', Pet);
